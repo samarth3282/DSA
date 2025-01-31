@@ -45,7 +45,7 @@ vector<vector<int>> threeSum(vector<int> &arr)
     return ans;
 }
 
-vector<vector<int>> threeSymOptimal(vector<int> &arr)
+vector<vector<int>> threeSumOptimal(vector<int> &arr)
 {
     sort(arr.begin(), arr.end());
     vector<vector<int>> ans;
