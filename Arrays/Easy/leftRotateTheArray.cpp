@@ -34,7 +34,7 @@ void leftRotateTheArrayByOnePlace(int arr[], int n)
 }
 
 // Function to left rotate the array by 'd' places (Brute Force Approach)
-void leftRotateTheArrayByDPlace(int arr[], int d, int n)
+void leftRotateTheArrayByDPlaceBrute(int arr[], int d, int n)
 {
     // Brute Force Approach for rotating by 'd' places
     // T.C. = O(n + d) - Copy d elements, shift n elements, and then insert d elements back
@@ -66,7 +66,7 @@ void leftRotateTheArrayByDPlace(int arr[], int d, int n)
 }
 
 // Function to left rotate the array by 'd' places (Optimal Solution using reversal)
-void leftRotateTheArrayByDPlace2(int arr[], int d, int n)
+void leftRotateTheArrayByDPlaceOptimal(int arr[], int d, int n)
 {
     // Optimal Solution for rotating by 'd' places using the reversal algorithm
     // T.C. = O(2n) ~ O(n) - We reverse the array three times, each time iterating through it once
@@ -96,7 +96,7 @@ int main()
     // leftRotateTheArrayByOnePlace(arr, n);
 
     // Test case: Optimal rotation by 'd' places using the reversal algorithm
-    leftRotateTheArrayByDPlace2(arr, 2, n);
+    leftRotateTheArrayByDPlaceOptimal(arr, 2, n);
 
     // Test case: Brute force rotation by 'd' places
     // leftRotateTheArrayByDPlace(arr, 2, n);
