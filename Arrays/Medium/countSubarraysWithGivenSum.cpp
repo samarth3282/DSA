@@ -39,6 +39,17 @@ int countSubarrayWithGivenSumBetter(vector<int> &arr, int givenSum)
     }
     return count;
 }
+
+int countSubarrayWithGivenSum(vector<int> &arr, int sum){
+    int count = 0;
+    map<int, int> mpp;
+    mpp[0] = 1;
+    int preSum = 0;
+    for(int i = 0; i < arr.size(); i++){
+        preSum+=arr[i];
+        
+    }
+}
 int main()
 {
 

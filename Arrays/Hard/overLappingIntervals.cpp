@@ -31,17 +31,22 @@ vector<vector<int>> overLappingIntervalsBrute(vector<vector<int>> &intervals)
     return ans;
 }
 
-vector<vector<int>> overLappingIntervalsOptimal(vector<vector<int>> &intervals){
+vector<vector<int>> overLappingIntervalsOptimal(vector<vector<int>> &intervals)
+{
     sort(intervals.begin(), intervals.end());
     vector<vector<int>> ans;
-    for(int i = 0; i < intervals.size(); i++){
-        if(ans.empty() || intervals[i][0] > ans.back()[1]){
+    for (int i = 0; i < intervals.size(); i++)
+    {
+        if (ans.empty() || intervals[i][0] > ans.back()[1])
+        {
             ans.push_back(intervals[i]);
         }
-        else{
+        else
+        {
             ans.back()[1] = max(ans.back()[1], intervals[i][1]);
         }
     }
+    return ans;
 }
 int main()
 {
