@@ -45,6 +45,7 @@ void mergeSort(int arr[], int low, int high)
     mergeSort(arr, mid + 1, high);
     merge(arr, low, mid, high);
 }
+
 int main()
 {
     int arr[] = {10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
