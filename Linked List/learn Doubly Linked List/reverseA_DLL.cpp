@@ -48,7 +48,7 @@ void printDLL(Node *head)
     }
     cout << "NULL\n";
 }
-Node *reverseDLL(Node *head, vector<int> &stack)
+Node *reverseDLL(Node *head)
 {
     Node *prevNode = nullptr;
     Node *currNode = head;
@@ -59,7 +59,7 @@ Node *reverseDLL(Node *head, vector<int> &stack)
         currNode->next = prevNode;
         currNode = currNode->prev;
     }
-    return prevNode->prev;
+    return prevNode;
 }
 int main()
 {
@@ -67,7 +67,7 @@ int main()
     vector<int> v = {1, 2, 3, 4, 5};
     Node *head = convertToDLL(v);
     printDLL(head);
-    head = reverseDLL(head, stack);
+    head = reverseDLL(head);
     printDLL(head);
     return 0;
 }

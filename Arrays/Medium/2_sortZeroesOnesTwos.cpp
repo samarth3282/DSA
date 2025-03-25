@@ -1,43 +1,12 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int findPartition(int arr[], int low, int high)
+
+void sortZeroesOnesTwosBrute(vector<int> &arr)
 {
-    int pivot = arr[low];
-    int i = low;
-    int j = high;
-    while (i < j)
-    {
-        while (arr[i] <= pivot && i <= high - 1)
-        {
-            i++;
-        }
-        while (arr[j] > pivot && j <= low - 1)
-        {
-            j--;
-        }
-        if (i < j)
-        {
-            swap(arr[i], arr[j]);
-        }
-    }
-    swap(arr[low], arr[j]);
-    return j;
-}
-void QuickSort(int arr[], int low, int high)
-{
-    if (low < high)
-    {
-        int partition = findPartition(arr, low, high);
-        QuickSort(arr, low, partition - 1);
-        QuickSort(arr, partition + 1, high);
-    }
+    sort(arr.begin(), arr.end());
 }
 
-void sortZeroesOnesTwosBrute(int arr[], int size)
-{
-    QuickSort(arr, 0, size - 1);
-}
 void sortZeroesOnesTwosBetter(int arr[], int size)
 {
     int cnt0 = 0;
