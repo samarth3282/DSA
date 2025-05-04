@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+    <h1>Drag and Drop Example</h1>
+
+    <div id="dragElement" draggable="true" ondragstart="dragStart(event)">
+        Drag me!
+    </div>
+
+    <div id="dropZone" ondragover="allowDrop(event)" ondrop="drop(event)">
+        Drop here!
+    </div>
+
+    <script>
+        function dragStart(event) {
+            event.dataTransfer.setData("text/plain", event.target.id);
+        }
+
+        function allowDrop(event) {
+            event.preventDefault();
+        }
+
+        function drop(event) {
+            event.preventDefault();
+            const draggedElementId = event.dataTransfer.getData("text/plain");
+            const draggedElement = document.getElementById(draggedElementId);
+            document.getElementById("dropZone").appendChild(draggedElement);
+        }
+
+        function dragStart() {
+            event.dataTransfer.setData('text/plain', event.target.id);
+        }
+
+        function allowDrop() {
+            event.preventDefault();
+        }
+        function drop() {
+            const draggedElementId = event.dataTransfer.getData("text/plain");
+            const draggedElement = document.getElementById(draggedElementId);
+
+        }
+    </script>
+</body>
+
+</html>
