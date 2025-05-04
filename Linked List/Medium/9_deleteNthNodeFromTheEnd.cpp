@@ -39,7 +39,7 @@ Node *deleteNthNodeFromTheEndBrute(Node *head, int n)
     return head;
 }
 
-Node *deleteNthNodeFromTheEnd(Node *head, int n)
+Node *deleteNthNodeFromTheEndOptimal(Node *head, int n)
 {
     Node *fast = head;
     Node *slow = head;

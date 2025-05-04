@@ -11,100 +11,33 @@ public:
         next = nullptr;
     }
 };
-Node *seggregatOddEven(Node *head)
+Node *SegregatetoOddEVenOptimal(Node *head)
 {
-    Node *evenHead = nullptr;
-    Node *evenTail = nullptr;
-    Node *oddHead = nullptr;
-    Node *oddTail = nullptr;
-    Node *temp = head;
-    while (temp)
+    // creating Heads of Odd and Even LinkedLists
+    Node *oddHead = new Node(-1), *oddTail = oddHead;
+    Node *evenHead = new Node(-1), *evenTail = evenHead;
+    Node *curr = head, *temp;
+    while (curr)
     {
-        if (temp->data % 2 == 0)
+        // Breaking the Link of the curr Node.
+        temp = curr;
+        curr = curr->next;
+        temp->next = nullptr;
+
+        if (temp->data & 1) // If odd Node,append to odd LinkedList
         {
-            if (!evenHead)
-            {
-                evenHead = temp;
-                evenTail = temp;
-            }
-            else
-            {
-                evenTail->next = temp;
-                evenTail = evenTail->next;
-            }
+            oddTail->next = temp;
+            oddTail = temp;
         }
-        else
+        else // If Even Node,append to even LinkedList
         {
-            if (!oddHead)
-            {
-                oddHead = temp;
-                oddTail = temp;
-            }
-            else
-            {
-                oddTail->next = temp;
-                oddTail = oddTail->next;
-            }
+            evenTail->next = temp;
+            evenTail = temp;
         }
     }
-    if (evenTail)
-    {
-        evenTail->next = oddHead;
-    }
-    if (oddTail)
-    {
-        oddTail->next = nullptr;
-    }
-    return evenHead ? evenHead : oddHead;
-}
-
-Node *segregateOddEven(Node *head)
-{
-    Node *evenHead = nullptr;
-    Node *evenTail = nullptr;
-    Node *oddHead = nullptr;
-    Node *oddTail = nullptr;
-
-    Node *temp = head;
-
-    while (temp)
-    {
-        if (temp->data % 2 == 0)
-        {
-
-            if (evenHead == nullptr)
-            {
-                evenHead = temp;
-                evenHead = temp;
-            }
-            else
-            {
-                evenTail->next = temp;
-                evenTail = evenTail->next;
-            }
-        }
-        else
-        {
-            if (oddHead == nullptr)
-            {
-                oddHead = temp;
-                oddTail = temp;
-            }
-            else
-            {
-                oddTail->next = temp;
-            }
-        }
-    }
-    if (evenTail)
-    {
-        evenTail->next = oddHead;
-    }
-    if (oddTail)
-    {
-        oddTail->next = nullptr;
-    }
-    return evenHead;
+    evenTail->next = oddHead->next;
+    // Appending Odd LinkedList at end of EvenLinkedList
+    return evenHead->next;
 }
 
 int main()

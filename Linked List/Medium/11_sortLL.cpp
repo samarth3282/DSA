@@ -48,7 +48,7 @@ Node *sortLLOptimal(Node *head)
 
     Node *leftSorted = sortLLOptimal(head);
     Node *rightSorted = sortLLOptimal(rightHead);
-    
+
     mergeLL(leftSorted, rightSorted);
 }
 Node *findMiddle(Node *head)
