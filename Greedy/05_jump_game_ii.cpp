@@ -42,7 +42,6 @@ int minimumJumpsMemoHelper(vector<int> &arr, int index, vector<int> &dp)
         return 0;
     if (dp[index] != -1)
         return dp[index];
-
     int mini = INT_MAX;
     for (int jump = 1; jump <= arr[index]; jump++)
     {
