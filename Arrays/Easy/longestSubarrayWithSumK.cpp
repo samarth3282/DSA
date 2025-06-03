@@ -1,6 +1,37 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+int longestSubarrayWithSumKBrutest(vector<int> &arr, int k)
+{
+    int maxLen = INT_MIN;
+    for (int i = 0; i < arr.size(); i++)
+    {
+        for (int j = i; j < arr.size(); j++)
+        {
+            int sum = 0;
+            for (int k = i; k <= j; k++)
+            {
+                sum += arr[k];
+            }
+            if (sum == k)
+                maxLen = max(maxLen, j - i + 1);
+        }
+    }
+    return maxLen;
+}
+
+int longestSubarrayWithSumKBrute(vector<int> &arr, int k){
+    int maxLen = INT_MIN;
+    for (int i = 0; i < arr.size(); i++)
+    {
+        int sum = 0;
+        for(int j = i;j<arr.size();j++){
+            sum+=arr[j];
+            if(sum==k) maxLen = max(maxLen, j-i+1);
+        }
+    }
+    return maxLen;
+}
 /**
  * Function: longestSubarrayWithSumKBetter
  * --------------------------------------
@@ -110,4 +141,8 @@ int main()
     }
 
     return 0;
+}
+
+int longestSubarrayWithSumK(vector<int> &arr, int k){
+    
 }

@@ -2,5 +2,7 @@
     "files.associations": {
         "array": "cpp",
         "string": "cpp"
-    }
+    },
+    "editor.cursorBlinking": "expand",
+    "editor.cursorStyle": "line"
 }
