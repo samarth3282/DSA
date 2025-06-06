@@ -1,57 +1,38 @@
 #include <bits/stdc++.h>
 using namespace std;
-
-vector<vector<int>> generateNonEmptySubsets(const vector<int> &nums)
+string smallestEquivalentString(string s1, string s2, string baseStr)
 {
-    int n = nums.size();
-    vector<vector<int>> result;
+    map<char, priority_queue<char>> mpp;
 
-    for (int mask = 1; mask < (1 << n); ++mask)
+    for (int i = 0; i < s1.size(); i++)
     {
-        vector<int> subset;
-        for (int i = 0; i < n; ++i)
-        {
-            if (mask & (1 << i))
-            {
-                subset.push_back(nums[i]);
-            }
-        }
-        result.push_back(subset);
+        mpp[s1[i]].push(s1[i]);
+        mpp[s1[i]].push(s2[i]);
+        mpp[s2[i]].push(s1[i]);
     }
 
-    return result;
-}
-bool checkEqualPartitions(vector<int> &arr, long long target)
-{
-    set<int> elements;
-    for (int i = 0; i < arr.size(); i++)
+    vector<set<char>> v;
+
+    for (auto it : mpp)
     {
-        elements.insert(arr[i]);
-    }
-    vector<vector<int>> allSubsets = generateNonEmptySubsets(arr);
-    for(auto it : allSubsets){
-        vector<int> temp = it;
-        int prod = 1;
-        for (int i = 0; i < temp.size(); i++)
+        set<char> st;
+        auto pq = it.second; // copy the priority queue so we can pop safely
+        while (!pq.empty())
         {
-            prod*=temp[i];
+            st.insert(pq.top());
+            pq.pop();
         }
-        if(prod == target){
-            set<int> copyElements = elements;
-            for (int i = 0; i < temp.size(); i++)
-            {
-                copyElements.erase(temp[i]);
-            }
-            int prod = 1;
-            for(auto it : copyElements){
-                prod*=it;
-            }
-            if(prod == target) return true;
-        }
+        v.push_back(st);
     }
-    return false;
+    for (auto &st : v)
+    {
+        cout << "{ ";
+        for (char c : st)
+            cout << c << " ";
+        cout << "}" << endl;
+    }
+    return "";
 }
-
 int main()
 {
 
