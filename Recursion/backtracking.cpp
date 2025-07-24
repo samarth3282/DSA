@@ -10,10 +10,18 @@ void print(int i, int n)
     print(i + 1, n);
     cout << i << endl;
 }
+
+void printOnBack(int currnum, int n)
+{
+    if (currnum == n + 1)
+        return;
+    printOnBack(currnum + 1, n);
+    cout << currnum << endl;
+}
 int main()
 {
     int n;
     cin >> n;
-    print(1, n);
+    printOnBack(1, n);
     return 0;
 }

@@ -1,7 +1,13 @@
 {
     "files.associations": {
         "array": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "ostream": "cpp",
+        "iostream": "cpp",
+        "chrono": "cpp",
+        "random": "cpp",
+        "limits": "cpp",
+        "valarray": "cpp"
     },
     "editor.cursorBlinking": "expand",
     "editor.cursorStyle": "line"

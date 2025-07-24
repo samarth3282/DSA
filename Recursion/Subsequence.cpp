@@ -1,6 +1,11 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+void subsequence(int start, vector<int> &arr, int size, vector<int> &v)
+{
+    if (start == size)
+        return;
+}
 void subsequence(int start, int arr[], int size, vector<int> &v)
 {
     if (start == size)
