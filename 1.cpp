@@ -1,58 +1,71 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <numeric>
+#include <algorithm>
+
 using namespace std;
 
-int main()
+void solve()
 {
-    int t;
-    cin >> t;
-    priority_queue<int, vector<int>, greater<int>> minHeap;
-    while (t--)
+    int n;
+    cin >> n;
+    vector<long long> a(n);
+    for (int i = 0; i < n; ++i)
     {
-        int n, k;
-        cin >> n >> k;
-        vector<int> arr(n);
-        long long sum = 0;
-        for (int i = 0; i < n; i++)
-        {
-            cin >> arr[i];
-            sum += arr[i];
+        cin >> a[i];
+    }
+
+    long long cost = 0;
+    vector<long long> d(n + 1, 0);
+    long long max_d_prefix = 0;
+
+    for (int i = 1; i <= n; ++i)
+    {
+        long long current_d;
+        if (i % 2 != 0)
+        { // Odd index
+            current_d = d[i - 1] - a[i - 1];
         }
-        int minEl = INT_MAX, secondMin = INT_MAX;
-        for (int i = 0; i < arr.size(); i++)
-        {
-            if (arr[i] < minEl)
-            {
-                secondMin = minEl;
-                minEl = arr[i];
-            }
-            else if (arr[i] < secondMin)
-            {
-                secondMin = arr[i];
-            }
+        else
+        { // Even index
+            current_d = d[i - 1] + a[i - 1];
         }
 
-        while (k--)
+        if (i >= 2)
         {
-            int newEl = (minEl + secondMin);
-            if (newEl % 2 == 0)
+            if (current_d < max_d_prefix)
             {
-                newEl = newEl / 2;
+                cost += max_d_prefix - current_d;
+                d[i] = max_d_prefix;
             }
             else
             {
-                newEl = (newEl + 1) / 2;
+                d[i] = current_d;
             }
-            sum += newEl;
-            if (newEl < secondMin)
-            {
-                secondMin = newEl;
-            }
-            if (minEl == secondMin || minEl + 1 == secondMin)
-                break;
         }
-        int var = ((((minEl + secondMin) % 2) == 0) ? ((minEl + secondMin) / 2) : ((minEl + secondMin + 1) / 2));
-        sum += (k * (var));
-        cout << sum << endl;
+        else
+        {
+            d[i] = current_d;
+        }
+
+        if (i >= 1)
+        {
+            max_d_prefix = max(max_d_prefix, d[i - 1]);
+        }
+    }
+
+    cout << cost << endl;
+}
+
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    int t;
+    cin >> t;
+    while (t--)
+    {
+        solve();
     }
     return 0;
 }
