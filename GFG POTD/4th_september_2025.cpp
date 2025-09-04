@@ -20,15 +20,18 @@ public:
         Node *temp = head;
         Node *prevNode = nullptr;
         Node *nextNode = nullptr;
+
         while (temp)
         {
-            Node *nextNode = temp->next;
+            nextNode = temp->next;
             temp->next = prevNode;
             prevNode = temp;
             temp = nextNode;
         }
+
         return prevNode;
     }
+
     Node *reverseKGroup(Node *head, int k)
     {
         // code here
@@ -37,29 +40,33 @@ public:
         while (currNode)
         {
             Node *kthNode = currNode;
-            for (int i = 0; i < k; i++)
+            for (int i = 0; kthNode->next && i < k - 1; i++)
             {
                 kthNode = kthNode->next;
             }
-            if (!kthNode)
-            {
-                if (prevNode)
-                {
-                    prevNode->next = currNode;
-                }
-                break;
-            }
+            // if (!kthNode)
+            // {
+            //     // kthNode->next =
+            //     if (prevNode)
+            //     {
+            //         prevNode->next = currNode;
+            //     }
+            //     break;
+            // }
             Node *nextNode = kthNode->next;
             kthNode->next = nullptr;
-            reverseLL(currNode);
+            Node *newHead = reverseLL(currNode);
             if (currNode == head)
             {
-                head = kthNode;
+                head = newHead;
             }
             else
             {
-                kthNode->next = prevNode;
+                prevNode->next = newHead;
             }
+            prevNode = currNode;
+            currNode = nextNode;
         }
+        return head;
     }
 };
