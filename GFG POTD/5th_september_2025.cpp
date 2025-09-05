@@ -1,15 +1,17 @@
-/* Node is defined as
-  class Node {
-  public:
+// /* Node is defined as
+class Node
+{
+public:
     int data;
-    Node* next;
+    Node *next;
 
-    Node(int x) {
+    Node(int x)
+    {
         data = x;
         next = nullptr;
     }
 };
-*/
+// */
 class Solution
 {
 public:
@@ -64,6 +66,28 @@ public:
                     twoTail = twoTail->next;
                 }
             }
+            temp = temp->next;
         }
+        if (oneTail)
+        {
+            oneTail->next = nullptr;
+        }
+        if (zeroTail)
+        {
+            zeroTail->next = nullptr;
+        }
+        if (twoTail)
+        {
+            twoTail->next = nullptr;
+        }
+        if (zeroTail)
+        {
+            zeroTail->next = oneHead ? oneHead : twoHead;
+        }
+        if (oneTail)
+        {
+            oneTail->next = twoHead ? twoHead : nullptr;
+        }
+        return zeroHead ? zeroHead : (oneHead ? oneHead : twoHead);
     }
 };
