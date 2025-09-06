@@ -1,69 +1,51 @@
-/* Node is defined as
-  class Node {
+/*
+class Node {
   public:
-    int data;
-    Node* next;
+    int val;
+    Node *next;
 
     Node(int x) {
-        data = x;
-        next = nullptr;
+        val = x;
+        next = NULL;
     }
 };
 */
+
 class Solution
 {
 public:
-    Node *segregate(Node *head)
+    Node *swapKth(Node *head, int k)
     {
-        // code here
-        Node *oneHead = nullptr;
-        Node *oneTail = nullptr;
-        Node *zeroHead = nullptr;
-        Node *zeroTail = nullptr;
-        Node *twoHead = nullptr;
-        Node *twoTail = nullptr;
-        Node *temp = head;
-        while (temp)
+        if (!head)
+            return head;
+
+        int n = 0;
+        Node *curr = head;
+        while (curr)
         {
-            if (temp->data == 0)
-            {
-                if (zeroHead == nullptr)
-                {
-                    zeroHead = temp;
-                    zeroTail = temp;
-                }
-                else
-                {
-                    zeroTail->next = temp;
-                    zeroTail = zeroTail->next;
-                }
-            }
-            else if (temp->data == 1)
-            {
-                if (oneHead == nullptr)
-                {
-                    oneHead = temp;
-                    oneTail = temp;
-                }
-                else
-                {
-                    oneTail->next = temp;
-                    oneTail = oneTail->next;
-                }
-            }
-            else
-            {
-                if (twoHead == nullptr)
-                {
-                    twoHead = temp;
-                    twoTail = temp;
-                }
-                else
-                {
-                    twoTail->next = temp;
-                    twoTail = twoTail->next;
-                }
-            }
+            n++;
+            curr = curr->next;
         }
+
+        if (k > n)
+            return head;
+
+        Node *first = head;
+        for (int i = 1; i < k; i++)
+        {
+            first = first->next;
+        }
+
+        Node *second = head;
+        for (int i = 1; i < n - k + 1; i++)
+        {
+            second = second->next;
+        }
+
+        int temp = first->val;
+        first->val = second->val;
+        second->val = temp;
+
+        return head;
     }
 };
