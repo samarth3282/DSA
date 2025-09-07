@@ -1,51 +1,83 @@
-/*
-class Node {
-  public:
-    int val;
-    Node *next;
+#include <bits/stdc++.h>
+using namespace std;
 
-    Node(int x) {
-        val = x;
-        next = NULL;
-    }
-};
-*/
-
-class Solution
+int main()
 {
-public:
-    Node *swapKth(Node *head, int k)
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    int t;
+    cin >> t;
+
+    while (t--)
     {
-        if (!head)
-            return head;
+        int n;
+        cin >> n;
 
-        int n = 0;
-        Node *curr = head;
-        while (curr)
+        vector<int> b(n);
+        for (int i = 0; i < n; i++)
         {
-            n++;
-            curr = curr->next;
+            cin >> b[i];
         }
 
-        if (k > n)
-            return head;
-
-        Node *first = head;
-        for (int i = 1; i < k; i++)
+        vector<int> freq(n + 1, 0);
+        for (int i = 0; i < n; i++)
         {
-            first = first->next;
+            freq[b[i]]++;
         }
 
-        Node *second = head;
-        for (int i = 1; i < n - k + 1; i++)
+        vector<int> a(n, 0);
+        bool valid = true;
+        int next_value = 1;
+
+        for (int occ_count = 1; occ_count <= n; occ_count++)
         {
-            second = second->next;
+            if (freq[occ_count] == 0)
+                continue;
+
+            if (freq[occ_count] % occ_count != 0)
+            {
+                valid = false;
+                break;
+            }
+
+            int num_groups = freq[occ_count] / occ_count;
+
+            vector<int> positions;
+            for (int i = 0; i < n; i++)
+            {
+                if (b[i] == occ_count)
+                {
+                    positions.push_back(i);
+                }
+            }
+
+            for (int group = 0; group < num_groups; group++)
+            {
+                int current_value = next_value++;
+                for (int j = 0; j < occ_count; j++)
+                {
+                    int pos = positions[group * occ_count + j];
+                    a[pos] = current_value;
+                }
+            }
         }
 
-        int temp = first->val;
-        first->val = second->val;
-        second->val = temp;
-
-        return head;
+        if (!valid)
+        {
+            cout << -1 << "\n";
+        }
+        else
+        {
+            for (int i = 0; i < n; i++)
+            {
+                cout << a[i];
+                if (i < n - 1)
+                    cout << " ";
+            }
+            cout << "\n";
+        }
     }
-};
+
+    return 0;
+}
