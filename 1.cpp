@@ -1,83 +1,34 @@
-#include <bits/stdc++.h>
-using namespace std;
-
-int main()
+class Solution
 {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-
-    int t;
-    cin >> t;
-
-    while (t--)
+public:
+    string largestSwap(string &s)
     {
-        int n;
-        cin >> n;
-
-        vector<int> b(n);
-        for (int i = 0; i < n; i++)
+        // code here
+        int maxInd = -1;
+        int maxNum = INT_MIN;
+        for (int i = 0; i < s.length(); i++)
         {
-            cin >> b[i];
-        }
-
-        vector<int> freq(n + 1, 0);
-        for (int i = 0; i < n; i++)
-        {
-            freq[b[i]]++;
-        }
-
-        vector<int> a(n, 0);
-        bool valid = true;
-        int next_value = 1;
-
-        for (int occ_count = 1; occ_count <= n; occ_count++)
-        {
-            if (freq[occ_count] == 0)
-                continue;
-
-            if (freq[occ_count] % occ_count != 0)
+            if (s[i] - '0' >= maxNum)
             {
-                valid = false;
-                break;
-            }
-
-            int num_groups = freq[occ_count] / occ_count;
-
-            vector<int> positions;
-            for (int i = 0; i < n; i++)
-            {
-                if (b[i] == occ_count)
-                {
-                    positions.push_back(i);
-                }
-            }
-
-            for (int group = 0; group < num_groups; group++)
-            {
-                int current_value = next_value++;
-                for (int j = 0; j < occ_count; j++)
-                {
-                    int pos = positions[group * occ_count + j];
-                    a[pos] = current_value;
-                }
+                maxNum = s[i] - '0';
+                maxInd = i;
             }
         }
-
-        if (!valid)
+        int minInd = -1;
+        int minNum = INT_MAX;
+        for (int i = 0; i < s.length(); i++)
         {
-            cout << -1 << "\n";
-        }
-        else
-        {
-            for (int i = 0; i < n; i++)
+            if (s[i] - '0' < minNum)
             {
-                cout << a[i];
-                if (i < n - 1)
-                    cout << " ";
+                minNum = s[i] - '0';
+                minInd = i;
             }
-            cout << "\n";
         }
+        // int
+        // char temp = s[ind];
+        // s[ind] = s[0];
+        // s[0] = temp;
+        // swap(s[ind],s[0]);
+        return s;
     }
-
-    return 0;
-}
+};

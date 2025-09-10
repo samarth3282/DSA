@@ -1,128 +1,101 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void subsequenceWithSumK(int start, int arr[], int size, vector<int> &v, int k)
+void rec1(int index, vector<int> &ds, vector<int> &arr, int sum, int k)
 {
-    if (start == size)
+    if (index == arr.size())
     {
-        int sum = 0;
-        for (auto it : v)
-        {
-            sum += it;
-        }
         if (sum == k)
         {
-            if (v.size() == 0)
+            for (int i = 0; i < ds.size(); i++)
             {
-                cout << "{}";
-                cout << endl;
+                cout << ds[i] << " ";
             }
-            else
-            {
-                cout << "{";
-                for (int i = 0; i < v.size(); i++)
-                {
-                    if (i == v.size() - 1)
-                    {
-                        cout << v[i] << "}";
-                    }
-                    else
-                    {
-                        cout << v[i] << ", ";
-                    }
-                }
-
-                cout << endl;
-            }
+            cout << endl;
         }
         return;
     }
-    v.push_back(arr[start]);
-    subsequenceWithSumK(start + 1, arr, size, v, k);
-    v.pop_back();
-    subsequenceWithSumK(start + 1, arr, size, v, k);
+
+    ds.push_back(arr[index]);
+    sum += arr[index];
+    rec1(index + 1, ds, arr, sum, k);
+    ds.pop_back();
+    sum -= arr[index];
+    rec1(index + 1, ds, arr, sum, k);
 }
 
-bool oneSubsequenceWithSumK(int start, int arr[], int size, vector<int> &v, int k)
+void subsequenceWithSumK(vector<int> &arr, int k)
 {
-    if (start == size)
+    vector<int> ds;
+    rec1(0, ds, arr, 0, k);
+}
+
+bool rec2(int index, vector<int> &ds, vector<int> &arr, int sum, int k)
+{
+    if (index == arr.size())
     {
-        int sum = 0;
-        for (auto it : v)
-        {
-            sum += it;
-        }
         if (sum == k)
         {
-            if (v.size() == 0)
+            for (int i = 0; i < ds.size(); i++)
             {
-                cout << "{}";
-                cout << endl;
+                cout << ds[i] << " ";
             }
-            else
-            {
-                cout << "{";
-                for (int i = 0; i < v.size(); i++)
-                {
-                    if (i == v.size() - 1)
-                    {
-                        cout << v[i] << "}";
-                    }
-                    else
-                    {
-                        cout << v[i] << ", ";
-                    }
-                }
-
-                cout << endl;
-                return true;
-            }
+            cout << endl;
+            return true;
         }
         else
-        {
             return false;
-        }
     }
-    v.push_back(arr[start]);
-    if (oneSubsequenceWithSumK(start + 1, arr, size, v, k) == true)
-    {
+
+    ds.push_back(arr[index]);
+    sum += arr[index];
+
+    if (rec2(index + 1, ds, arr, sum, k))
         return true;
-    }
-    v.pop_back();
-    if (oneSubsequenceWithSumK(start + 1, arr, size, v, k) == true)
-    {
+
+    ds.pop_back();
+    sum -= arr[index];
+
+    if (rec2(index + 1, ds, arr, sum, k))
         return true;
-    }
+
     return false;
 }
-int countSubsequenceWithSumK(int start, int arr[], int size, vector<int> &v, int k)
+
+void oneSubsequenceWithSumK(vector<int> &arr, int k)
 {
-    if (start == size)
+    vector<int> ds;
+    rec2(0, ds, arr, 0, k);
+}
+
+int rec3(int index, vector<int> &ds, vector<int> &arr, int sum, int k)
+{
+    if (index == arr.size())
     {
-        int sum = 0;
-        for (auto it : v)
-        {
-            sum += it;
-        }
         if (sum == k)
-        {
             return 1;
-        }
         else
-        {
             return 0;
-        }
     }
-    v.push_back(arr[start]);
-    int l = countSubsequenceWithSumK(start + 1, arr, size, v, k);
-    v.pop_back();
-    int r = countSubsequenceWithSumK(start + 1, arr, size, v, k);
-    return l + r;
+    int cnt = 0;
+    ds.push_back(arr[index]);
+    sum += arr[index];
+    cnt += rec3(index + 1, ds, arr, sum, k);
+    ds.pop_back();
+    sum -= arr[index];
+    cnt += rec3(index + 1, ds, arr, sum, k);
+    return cnt;
+}
+
+int countSubsequencesWithSumK(vector<int> &arr, int k)
+{
+    vector<int> ds;
+    return rec3(0, ds, arr, 0, k);
 }
 int main()
 {
-    vector<int> v;
-    int arr[] = {1, 2, 1};
-    cout << countSubsequenceWithSumK(0, arr, 3, v, 2);
+    // vector<int> v;
+    vector<int> arr = {1, 2, 1};
+    cout << countSubsequencesWithSumK(arr, 2);
     return 0;
 }
