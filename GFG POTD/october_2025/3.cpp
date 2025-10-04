@@ -1,41 +1,28 @@
-// Possible Words From Phone Digits
 #include <bits/stdc++.h>
 using namespace std;
 
-class Solution
+int main()
 {
-public:
-    void rec(int index, vector<int> &arr, vector<string> &ans, string &str, map<int, string> &mpp)
+    // your code goes here
+    int t;
+    cin >> t;
+    while (t--)
     {
-        if (index == arr.size())
+        int n;
+        cin >> n;
+        int left = 0;
+        int right = n;
+        while (left <= right)
         {
-            ans.push_back(str);
-            return;
+            long mid = left + (right - left) / 2;
+            long curr = mid * (mid + 1) / 2;
+            if (curr == n)
+                return mid;
+            if (curr < n)
+                left = mid + 1;
+            else
+                right = mid - 1;
         }
-        if (arr[index] == 0 || arr[index] == 1)
-            rec(index + 1, arr, ans, str, mpp);
-        for (int i = 0; i < mpp[arr[index]].length(); i++)
-        {
-            str.push_back(mpp[arr[index]][i]);
-            rec(index + 1, arr, ans, str, mpp);
-            str.pop_back();
-        }
+        cout << right << endl;
     }
-    vector<string> possibleWords(vector<int> &arr)
-    {
-        // code here
-        string str;
-        vector<string> ans;
-        map<int, string> mpp = {
-            {2, "abc"},
-            {3, "def"},
-            {4, "ghi"},
-            {5, "jkl"},
-            {6, "mno"},
-            {7, "pqrs"},
-            {8, "tuv"},
-            {9, "wxyz"}};
-        rec(0, arr, ans, str, mpp);
-        return ans;
-    }
-};
+}
